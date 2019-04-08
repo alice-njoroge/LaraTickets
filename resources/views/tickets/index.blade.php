@@ -32,8 +32,17 @@
                             <td>{{$ticket->id}}</td>
                             <td>{{$ticket->title}}</td>
                             <td>{{$ticket->description}}</td>
-                            <td><a href="{{action('TicketsController@edit',$ticket->id)}}" class="btn btn-warning">Edit</a> </td>
-                            <td><a href="#" class="btn btn-danger">Delete</a></td>
+                            <td><a href="{{action('TicketsController@edit',$ticket->id)}}"
+                                   class="btn btn-warning">Edit</a></td>
+                            <td>
+                                <form action="{{action('TicketsController@destroy', $ticket->id)}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger" onclick="return confirmDelete();" type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                     @if(empty($tickets))
@@ -48,6 +57,11 @@
             </div>
         </div>
     </div>
-
+    <script>
+        function confirmDelete() {
+            if(!confirm("Are You Sure to delete this"))
+                event.preventDefault();
+        }
+    </script>
 
 @endsection
