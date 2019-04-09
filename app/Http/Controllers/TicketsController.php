@@ -6,6 +6,8 @@ use App\Ticket;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class TicketsController extends Controller
 {
@@ -104,12 +106,12 @@ class TicketsController extends Controller
             'description' => 'required'
         ]);
 
-    $ticket->title = $request->input('title');
-    $ticket->description = $request->input('description');
-    $ticket->save();
+        $ticket->title = $request->input('title');
+        $ticket->description = $request->input('description');
+        $ticket->save();
 
-    return redirect('tickets')->with('success', 'ticket updated Successfully');
-}
+        return redirect('tickets')->with('success', 'ticket updated Successfully');
+    }
 
     /**
      * Remove the specified resource from storage.
